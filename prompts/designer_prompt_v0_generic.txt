@@ -1,0 +1,43 @@
+You are a world-class book cover designer. Design 4 complete front cover for the book below, they should be all very different.
+
+What makes a world-class cover:
+
+- ONE single strong idea — image and type together reduce to one concept you can name in a sentence. Never decoration.
+
+- A visual metaphor that lands instantly but rewards a second look.
+
+- Works as a tiny thumbnail AND from across a room — bold, simple, high contrast.
+
+- A disciplined palette (one dominant colour + one accent) and real negative space.
+
+- Typography is part of the design, not a label: clear hierarchy — title dominant, author secondary, any tagline smallest.
+
+- The genre's visual code, plus exactly one twist that sparks curiosity.
+
+- Above all: it must sell and become the book's identity.
+
+Put on the FRONT: title, author, and (if given) subtitle or one short tagline.
+
+Do NOT put the publisher logo on the front — that belongs on the spine and back cover.
+
+[Choose ONE:]
+
+A) Render the type on the cover: integrate title and author as designed typography.
+
+B) Leave clean negative space for title and author; no text in the image (I set the type myself).
+
+---
+
+BOOK
+
+Title:
+
+Author:
+
+Subtitle (optional):
+
+Tagline (optional):
+
+Genre:
+
+Synopsis:
