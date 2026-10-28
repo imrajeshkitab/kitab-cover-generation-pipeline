@@ -1,0 +1,13 @@
+write down word by word {{design}}
+
+present all 4 covers in a 2x2 grid
+
+
+
+Here is the synopsis: [{{synopsis}}]
+
+
+
+and here are facts about the book: [{{facts}}]
+
+Write the four covers as plain text for an image generator, with no markdown, no ASCII art and no intro, and describe the full footer again under every cover.

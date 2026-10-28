@@ -1,0 +1,43 @@
+# Baseline recipe for book-summary covers (prompt versions frozen as of 2026-10-28).
+# To experiment: copy to v2.toml and change one thing, or override at run time with --set.
+description = "Book summary cover, baseline: generic design prompt (title, author, tagline), synopsis condensed from chapters"
+
+[facts]
+mode = "db"                          # fields from App Prod: title, author, tagline, genre (category)
+block = "facts_block/summary/v1"
+
+[synopsis]
+mode = "auto"                        # auto = condense only when the text is longer than max_chars; passthrough = use as is
+prompt = "synopsis/v1"
+retry_prompt = "synopsis/v1_retry"
+min_chars = 6500
+max_chars = 7000
+model = "gemini-3.5-flash"
+thinking = "minimal"
+max_retries = 2
+
+[prompt]
+design = "design/generic/v1"
+assembly = "assembly/no_footer/v1"
+model = "gemini-3.5-flash"
+thinking = "minimal"
+max_input_chars = 10000
+max_retries = 2
+footer_check = false
+
+[cover]
+model = "gpt-image-2.5-sunburst"
+aspect_ratio = "2:3"
+resolution = "1K"
+quality = "high"
+
+[split]
+prompt = "split/v1"
+model = "gpt-image-2"
+aspect_ratio = "2:3"
+resolution = "1K"
+quality = "medium"
+
+[export]
+format = "webp"
+quality = 90

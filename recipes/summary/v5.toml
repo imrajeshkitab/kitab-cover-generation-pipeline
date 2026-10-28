@@ -1,0 +1,35 @@
+# Cut-paper style (Kitab AI thumbnail spec v1.0). Same pipeline as v1; new fixed prompts.
+description = "Book summary cover, symbolic cut paper v4: v3 + larger 2-line title, max 12 shapes, no interiors"
+
+[facts]
+mode = "db"
+block = "facts_block/summary/v2"     # title, author, genre (no tagline: the spec puts only title + author on the cover)
+
+[synopsis]
+mode = "passthrough"                 # full chapter text, so the model sees the opening (problem) and conclusion (outcome)
+
+[prompt]
+design = "design/cutpaper/v4"
+assembly = "assembly/cutpaper/v1"
+model = "gemini-3.5-flash"
+thinking = "minimal"
+max_input_chars = 30000              # our own limit (the 10k one was the ElevenLabs node's)
+max_retries = 2
+footer_check = false
+
+[cover]
+model = "gpt-image-2.5-sunburst"
+aspect_ratio = "2:3"
+resolution = "1K"
+quality = "high"
+
+[split]
+prompt = "split/v1"
+model = "gpt-image-2"
+aspect_ratio = "2:3"
+resolution = "1K"
+quality = "medium"
+
+[export]
+format = "webp"
+quality = 90

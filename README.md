@@ -1,138 +1,106 @@
 # Kitab cover generation pipeline
 
-Generates book-cover artwork for the **Practical Gita** insights (Know / Grow / Free yourself) in two steps:
-
-1. **Gemini 3.5 Flash** turns each insight into an image prompt describing four very different front covers.
-2. **ElevenLabs** (`gpt-image-2.5-sunburst`) renders those four covers as one 2x2 grid image.
-
-It reproduces the ElevenLabs Flows "Book cover design flow" in code, because ElevenLabs templates that use the Gemini LLM node can't be run through the ElevenLabs API.
+Generates cover artwork for Kitab content (book summaries, Practical Gita insights, journeys, bites).
+Content is read from **App Prod** (Supabase, read-only); every artifact is saved **locally** with a
+self-describing name. Nothing is published or written back to App Prod by this pipeline.
 
 ```
-workbook row (sheet K3 / G3 / F3)
-   │  Book facts  = Book title (Reworked title), Pillar, Genre, Target Audience
-   │  Synopsis    = the insight body, as is
-   ▼
-Gemini input  (fixed template + facts + synopsis)        → gemini_input.txt
-   ▼  gemini-3.5-flash · thinking minimal
-image prompt  (4 covers, plain text, footer under each)  → image_prompt.txt
-   ▼  ElevenLabs /v1/flows/image · gpt-image-2.5-sunburst · 2:3 · 1K · high
-2x2 cover grid                                            → covers.png
-   ▼  upload_covers.py
-Supabase storage  RMS-content/gita/draft-covers/K1.png …
+1. SOURCE     App Prod (read-only)  summaries + chapters · journey_steps · journeys · bytes
+                 │  normalised to one Item: type, source_id, lang, title, body, fields
+2. NODES      content → facts → synopsis → prompt → cover → split → export
+                 │      (each node reads its section of a versioned recipe)
+3. OUTPUT     outputs/<type>/<source_id>__<slug>/<lang>/<gen_id>/<type>__<slug>__<source_id>__<lang>__<gen_id>__<stage>.<ext>
+              + outputs/index.sqlite (one row per generation) + outputs/batches.jsonl (one line per run, with credits)
 ```
 
 ## Setup
 
 ```bash
 pip install -r requirements.txt
-cp .env.example .env    # then fill in the keys
+cp .env.example .env      # GEMINI_API_KEY, ELEVEN_LABS_API_KEY_ADMIN
+supabase login            # App Prod is read through the Supabase Management API with this login
 ```
 
-| Variable | Used for |
-|---|---|
-| `GEMINI_API_KEY` | Gemini prompt generation |
-| `ELEVEN_LABS_API_KEY_ADMIN` | ElevenLabs image generation |
-| `APPDEV_SUPABASE_URL`, `APPDEV_SUPABASE_SERVICE_ROLE_KEY` | Uploading covers (App dev project) |
+App Prod's database host is IPv6-only, so direct Postgres connections time out on most networks; the pipeline
+uses the Management API over HTTPS with `read_only: true` on every query.
 
-## Input workbook
-
-An `.xlsx` with one sheet per pillar. Sheet name sets the pillar line:
-
-| Sheet | Pillar |
-|---|---|
-| `K3` | Know yourself |
-| `G3` | Grow yourself |
-| `F3` | Free yourself |
-
-Required columns (row 1 headers): `#`, `Reworked title`, `Synopsis`, `Genre`, `Target Audience`.
-
-## Usage
+## Commands
 
 ```bash
-# 1. Image prompts with Gemini (no image cost)
-python cover_pipeline.py --xlsx "Title Revamp - with insights.xlsx" --sheet K3 --rows 1-10 \
-    --skip-image --normalize-footer --footer-check
-
-# 2. Covers with ElevenLabs, from the saved prompts (Gemini not called again)
-python cover_pipeline.py --xlsx "Title Revamp - with insights.xlsx" --sheet K3 --rows 1-10 --image-only
-
-# 3. Upload to Supabase (skips files that already exist)
-python upload_covers.py                         # → RMS-content/gita/draft-covers/
-python upload_covers.py --prefix gita/covers    # final folder
+python -m ccl items summary --search chatter                 # browse content (source_id, title, author, ...)
+python -m ccl run summary --ids 48b88d565dd40b745de573db      # full pipeline for one or more items
+python -m ccl run summary --ids SUM-440,SUM-759 --until prompt   # stop after the image prompt (Gemini only, no image cost)
+python -m ccl run summary --ids SUM-440 --start-at cover --from latest   # reuse earlier stages, redo cover onwards
+python -m ccl run summary --ids SUM-440 --until prompt --set prompt.design=design/generic/v2   # try another prompt version
+python -m ccl run gita_insight --ids K1,G12,F5               # aliases or step ids; --ids all for all 107
+python -m ccl status --type summary                          # generations from the index
 ```
 
-`--rows` accepts `all`, a range `1-10`, or a list `1,4,7`. Run several sheets/rows in parallel as separate processes to go faster; calls are normal synchronous API calls, not batch.
+`--workers N` runs items in parallel (default 4). All calls are normal API calls, not batch.
 
-### Output layout
+## Nodes
 
-```
-books/practical-gita/K3-01/
-  facts.txt          Book facts block
-  synopsis.txt       insight body
-  gemini_input.txt   exact text sent to Gemini
-  image_prompt.txt   Gemini output (the image prompt)
-  covers.png         2x2 cover grid (1024×1536 at 1K)
-```
+| Stage | Does | Output file(s) |
+|---|---|---|
+| `content` | Snapshot of the exact text and fields fetched from App Prod | `__content.json` |
+| `facts` | Facts block from a versioned template (fields from App Prod / overrides) | `__facts.txt` |
+| `synopsis` | `passthrough`, or condense to `min_chars`–`max_chars` with a versioned prompt (`auto` = only if longer than `max_chars`) | `__synopsis.txt` |
+| `prompt` | Assemble design prompt + synopsis + facts, Gemini writes the 4-cover image prompt (SVG guard, optional footer check) | `__gemini-input.txt`, `__prompt.txt` |
+| `cover` | ElevenLabs renders the 2x2 grid | `__grid.png` |
+| `split` | `mode = "crop"`: cuts the grid into 4 covers locally (inner gutters trimmed, no model call). `mode = "model"`: ElevenLabs redraws each cell from the grid (~495 credits per cell) | `__cover-1.png` … `__cover-4.png` |
+| `export` | Centre-crops each cover to exactly 2:3 and writes WebP at native size plus each `sizes` entry | `__cover-1.webp`, `__cover-1-800x1200.webp`, `__cover-1-400x600.webp` … |
 
-Uploaded names: `K3-01` → `K1.png`, `G3-12` → `G12.png`, `F3-05` → `F5.png`.
+Each generation folder also has `__meta.json`: recipe snapshot, prompt versions, models and settings,
+attempts, finish reason, token usage, ElevenLabs generation ids, timings and the parent generation (when stages were reused).
 
-## The Gemini input
+## Identity and naming
 
-Built in `build_gemini_input()`; the fixed parts never change:
-
-```
-write down word by word <prompts/designer_prompt.txt>
-
-present all 4 covers in a 2x2 grid
-
-
-
-Here is the synopsis: [<insight body>]
-
-
-
-and here are facts about the book: [Book title: …
-
-Pillar: Know yourself
-
-Genre: …
-
-Target Audience: …]
-
-Write the four covers as plain text for an image generator, with no markdown, no ASCII art and no intro, and describe the full footer again under every cover.
-```
-
-The last line (`PLAIN_LINE`) is our only addition to the ElevenLabs flow. Without it Gemini returns 7–15k characters of markdown and ASCII mock-ups with the footer described inconsistently. With it, output matches the ElevenLabs flow: about 4–5.5k characters, plain text, and the identical footer sentence under every cover.
-
-## Settings
-
-| Step | Setting |
+| Part | Meaning |
 |---|---|
-| Gemini | `gemini-3.5-flash`, `thinkingLevel: minimal`, no output-token cap (a cap truncates covers mid-sentence) |
-| Image | `gpt-image-2.5-sunburst`, aspect `2:3`, resolution `1K` (`--resolution 2K` / `4K` available), quality `high` |
+| `type` | `summary`, `gita_insight`, `journey`, `bite` |
+| `source_id` | Language-independent id: `summaries.source_id`, `bytes.source_id`, `journeys.id`, `journey_steps.id` (Gita, English only today) |
+| `lang` | Language of the content (`en` for now) |
+| `gen_id` | `YYYYMMDDTHHMMSSZ-xxxx` (UTC time + 4 random hex): unique per pipeline pass, sortable by time |
+| `slug` | From the title, for humans only; identity is `source_id` |
 
-## Quality checks
+Re-running from a later stage (`--start-at … --from …`) creates a **new** `gen_id`; the reused files are copied
+in under the new id and `meta.json` records `parent_gen_id` and `reused_from`.
 
-| Check | What it does |
-|---|---|
-| SVG guard | Rejects outputs where Gemini answers with SVG code |
-| `--footer-check` | Requires "Practical Gita" and the pillar name, exact casing, in the output; retries otherwise |
-| `--normalize-footer` | Forces exact casing of "Practical Gita" and the pillar name |
-| Retries | At most 2 retries (3 calls) per insight; best attempt kept, warning printed |
-| Input limit | Gemini input must stay under 10,000 characters |
+## Prompts and recipes (versioned, never edited in place)
 
-Optional experiments kept as flags: `--design-as-system`, `--no-write-down`, `--no-plain-line`, `--target-length N`.
+```
+prompts/design/generic/v1.txt          book design prompt (title, author, tagline) - baseline for summaries
+prompts/design/gita_insight/v1.txt     Practical Gita design prompt (ribbon + pillar) - baseline for Gita
+prompts/assembly/{footer,no_footer}/v1.txt   how the Gemini input is put together
+prompts/synopsis/v1.txt (+ v1_retry)   condense long text to a synopsis
+prompts/facts_block/<type>/v1.txt      layout of the facts block
+prompts/facts_gen/v1.txt               optional: generate facts with Gemini
+prompts/split/v1.txt                   crop one cell of the grid
+recipes/<type>/v1.toml                 which prompt versions + model settings each node uses
+overrides/gita_insight.csv             reworked titles, genre, audience (not in App Prod), keyed by step id
+```
 
-## Cost (measured)
+`v1` = the prompts in use on 2026-10-28 (frozen baseline). To experiment, add `vN+1` files and either a new
+recipe (`recipes/summary/v2.toml`, run with `--recipe v2`) or a one-off `--set section.key=value`.
+The Gita v1 recipe rebuilds the exact Gemini input that produced the first Gita covers (checked byte-for-byte).
 
-| Item | Cost |
-|---|---|
-| ElevenLabs cover grid, 1K | ~268 credits each (~29k for 107 insights) |
-| ElevenLabs cover grid, 2K | ~352 credits each |
-| Gemini prompt | 1 call per insight on the current settings (107/107 passed first try) |
+Summary recipes: `v1` original generic prompt; `v2`-`v6` cut-paper prompt iterations (`design/cutpaper/v1`-`v5`, matching the
+Kitab thumbnail spec's look); `v7` = `cutpaper/v5` + short title (`facts_block/summary/v3`, text before any colon) + local crop.
+Measured ElevenLabs cost per book: grid 1K ~268, 2K ~352, 4K ~736 credits; split by model ~495 per cell.
 
-## Known limitations
+Baseline settings: Gemini `gemini-3.5-flash` (thinking minimal), cover `gpt-image-2.5-sunburst` 2:3 1K high,
+split `gpt-image-2` 2:3 1K medium, export WebP q90.
 
-- The image model occasionally renders the ribbon text as small caps ("PRACTICAL GITA") or adds stray text on one of the four covers; review covers before publishing.
-- `upload_covers.py` never overwrites unless `--overwrite` is passed.
-- The ElevenLabs Flows template itself can't be run via API (`model_access_denied` for `gemini-3.5-flash-llm`), which is why this pipeline exists.
+## Content types
+
+| Type | Source | Recipe |
+|---|---|---|
+| `summary` | `summaries` + `summary_chapters` (chapter title + text) | `recipes/summary/v7.toml` (cut-paper style, current); `v1` = original baseline |
+| `gita_insight` | `journey_steps` of "Gita In A Day", Key Insight steps only (107) + `overrides/gita_insight.csv` | `recipes/gita_insight/v1.toml` |
+| `journey` | `journey_translations` overview + step outline | fetch only, no recipe yet |
+| `bite` | `bytes` | fetch only, no recipe yet |
+
+## Legacy scripts
+
+`cover_pipeline.py` + `upload_covers.py` are the original workbook-driven Gita scripts (kept unchanged for
+reference; they read `Title Revamp - with insights.xlsx` and write to `books/`).

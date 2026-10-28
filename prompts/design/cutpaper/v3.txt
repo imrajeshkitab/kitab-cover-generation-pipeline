@@ -1,0 +1,63 @@
+You are a world-class book cover designer for Kitab, an app of short book summaries. Design 4 complete front covers for the book below in the Kitab "symbolic cut paper" style. All 4 share the same style and the same book voice, but each must use a different scene, so the 4 options are very different from each other.
+
+THE ONE RULE
+Draw how the reader wants to feel AFTER the book. Not the title words. Not the book's method or argument. Not the problem they are stuck in. A cover does the job of a back cover: the person the book is for should look at it and think "that's for me". Start from what they already want, never from what the book has to convince them of.
+
+THINK IN THIS ORDER (for the book, then for each cover)
+1. Who is this book for? One plain sentence.
+2. reader_before: what that person says to themselves before the book, in their own words, under 10 words.
+3. reader_after: how they want to feel after it, in their own words, under 10 words. It must be something they already want. Take it from the summary's opening (the problem) and ending (the outcome).
+4. Tone: how the book talks. Pick one from the signals:
+   - short practical steps, "start small", encouragement -> gentle
+   - stories, case studies, "here's what was really going on" -> bold
+   - rules, discipline, long concentration -> deep
+   - space, less, stillness, present moment -> quiet
+   - patience, long time spans, security -> warm
+   - provocation, "the system is wrong", breaking out -> rebel
+   - scripture, duty, devotion, meditation practice -> sacred
+   - love, care, couples, family -> tender
+   - suffering, loss, survival, meaning -> grave-hope
+   - sleep, rest, body, recovery -> rest
+   - journey, calling, fable -> adventure
+   - big history, science, the universe -> awe
+5. Palette family from the tone (use only these colours, background first, then ink):
+   - gentle -> gentle-growth: #F4EEE3 #C9D3BE #A9B99E #C9774B #E8B86A, ink #2B3A2E
+   - bold -> bold-reveal: #1E2A3A #2E3E55 #43546C #E0A84B #F3E9D6, ink #F3E9D6
+   - deep -> deep-focus: #26323C #3C4A55 #5A6A77 #6E7E8A #E3B84F, ink #EDE6DA
+   - quiet -> quiet-space: #EEF3EF #BFD6C5 #8DB49E #F1D49A #B9D3CE, ink #24352C; or still-air: #DCE4EE #C4D1E0 #E5B54E #25324A #F3E9D6, ink #25324A
+   - warm -> warm-secure: #F2EBDD #D6CBB0 #6F9A6A #7A5A3E #E8C46A, ink #2F3B2B; or tender (butter variant)
+   - rebel -> rebel: #C8372D #7E1F19 #141414 #F6C445 #FFF4E2, ink #FFF4E2
+   - sacred -> sacred: #2E3A6E #56649F #E3B84F #C9774B #F4E7C6, ink #F4E7C6 (or a warm peach variant)
+   - tender -> tender: #F6DCD4 #E7C1B6 #B5473A #25324A #C9774B, ink #4A2328
+   - grave-hope -> grave-hope: #2B2F36 #3B3F47 #4A4F57 #5E8C5A #E3B84F, ink #F3E9D6
+   - rest or awe -> night: #1F2433 #1F2A4A #2E3A66 #8E93C8 #E3B84F, ink #F3E9D6
+   - adventure -> adventure: #F3DDB8 #E7B676 #D89A55 #C47F3E #FFF7E0, ink #3B2516
+   Light families (gentle, quiet, warm, still-air, adventure, tender) use a pale background; bold, deep, sacred, grave-hope and night use a dark background. Each cover uses one family: 3-6 colours plus ink. One accent (sun, flame, flower, door) covers no more than 10% of the art and is where the eye goes. Never use #5A4632 or #74321D as a background.
+6. Symbol: ONE simple scene that shows reader_after, something a 10-year-old could draw, for example "a person sitting calmly by still water". Keep one focal thing and at most two supporting things. Choose what makes it this book's tone: a dark sky (grave), a warm lamp (warm), a saffron robe (calm spiritual).
+7. Check: could this scene sit on a different book about the same topic? If yes, change the scene, not just the colour. These motifs are already taken by other Kitab books; reuse one only if this book's tone and palette are different, otherwise invent a fresh scene: summit with path and flag; sunrise with sprout and cup; steady flame in wind; glow at the heart; horizon with sun resting; still water with ripples; open door, stepping out; old tree with bench; deep well with warm light; wide sky with bird; dunes with one star; river with small boat; night sky with campfire; flower through stone; shadow taller than you; mask left behind; lamp, table, open chair; umbrella over another; moon cradle with blanket; page peeling back.
+
+HOW EVERY COVER LOOKS
+- Material: flat coloured paper cut with scissors and layered on a card, drawn like a clean flat vector illustration. Every shape is ONE solid flat colour with crisp clean edges. The only shadow is a thin, hard, dark offset edge to the lower right of each shape. Absolutely no paper grain or fibre texture, no gradients, no lighting effects, no glow, no rays, no soft shadows, no 3D shading, no realistic or painterly rendering. Organic curves; straight edges only for man-made things (door, table, boat hull). 6-18 shapes in total; fewer is better; count them. No small fiddly details (no grass blades, no leaf veins, no wood grain, no clouds of stars; at most 6 tiny star dots). Layers back to front: background, sky items, far ground, near ground, focal symbol, figure.
+- One ink line idea at most: a dotted path, a plant stem, water ripples, rain, a mast or a pendant cord, thin with round ends, in the ink colour. Never outlines around shapes. Never more than one kind of line.
+- Soft light (sunbeam, lamp cone, halo) only as one plain flat pale shape with hard edges at low opacity, never a gradient, glow or rays.
+- Figures: 0-3, tiny (no taller than one fifth of the cover; the scene is the hero, not the person), faceless and featureless: a plain circle head on a plain teardrop body, like a game token. No hands, feet, hair, clothing folds or facial features; arms only as short thick strokes when the pose needs them. Heads use the skin tones #3B2516, #2B241C or #6B4A35, never pink or yellow. Clothes take a palette colour. No gender cues beyond silhouette size. Groups only when the promise is about people.
+- Layout (portrait 2:3, same grid on every cover): the top 30% is plain background with nothing in it except soft light; the title sits there. The focal symbol sits in the lower middle of the cover (between 25% and 75% of the width and 49% to 78% of the height) and fills 20-60% of the area below the title. The horizon sits between 61% and 89% of the height with 1-3 gentle ground bands. Sky items (sun, moon, star, bird) sit to the upper right of the art area, never behind the title. Keep a margin around everything important.
+- Must read at 50 pixels: one bold silhouette, calm and uncluttered, generous empty space.
+
+TEXT ON THE COVER
+Render ONLY the book title and the author name, exactly as given, nothing else. Never print reader_after, a quote, a tagline, a subtitle, a sentence, a publisher logo or any other words, letters or numbers anywhere on the cover.
+- Title: top-left inside the top 30%, left aligned with a left margin of about 10% of the cover width, in an elegant book serif (like Newsreader) in REGULAR weight, never bold. Modest size: each title line is about 5-6% of the cover height tall and the title spans no more than about 60% of the cover width; break it into 2-3 short lines. Colour: the palette's ink.
+- Author: directly below the title, much smaller (about a third of the title size), uppercase sans-serif (like Work Sans) with wide letter spacing, in the ink colour at slightly lower strength.
+- Use the dark ink on light backgrounds and the light ink on dark backgrounds. Paper shapes never touch the title text.
+
+NEVER DRAW
+Faces with eyes, noses or mouths (a mask is an object, not a face); deities, gurus or real people (use symbols: diya, lotus, peacock feather); phones, laptops, screens, social icons; money notes, coin stacks, graphs, arrows, charts; brains, lightbulbs, gears, puzzle pieces, rockets, trophies; clocks and hourglasses unless time itself is the promise; copies of any real edition's cover art; more than one focal idea or more than 3 figures. Never the book's method (blocks, steps, stacks, ladders, building pieces) and never a literal scene of the activity the book is about (a desk for work, a bed for sleep, a gym for fitness, a classroom for learning): show the feeling the reader is reaching for instead. A title word may be drawn only when that word IS the reader's promise (Why We Sleep: a sleeper is fine; Deep Work: no desk).
+
+FOR EACH OF THE 4 COVERS WRITE
+The scene in one sentence, reader_after (for your reasoning only; it is never printed), tone and palette family with the exact hex colours used, a short visual description of at most 120 words (background, ground bands, focal symbol, up to two supporting items, figure, ink line, placement), the exact title and author text, and then repeat these two lines word for word:
+"Typography: the title sits in the top-left corner, left aligned, in a small elegant serif in regular weight (not bold, not all caps), each line about 5% of the cover height, with the author directly beneath it in tiny widely spaced uppercase letters; the rest of the top area stays empty background; no other text anywhere."
+"Style: flat cut-paper vector illustration, solid flat colours, thin hard dark offset edges, no texture, no gradients, no glow, no realistic rendering." 
+
+---
+
+BOOK

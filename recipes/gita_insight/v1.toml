@@ -1,0 +1,36 @@
+# Baseline recipe for Practical Gita insight covers (the settings that produced K1-K10).
+description = "Gita insight cover, baseline: Gita design prompt with Practical Gita ribbon + pillar, insight body as synopsis"
+
+[facts]
+mode = "db"                          # pillar from App Prod; reworked title, genre, audience from overrides/gita_insight.csv
+block = "facts_block/gita_insight/v1"
+
+[synopsis]
+mode = "passthrough"                 # the insight body is used as is
+
+[prompt]
+design = "design/gita_insight/v1"
+assembly = "assembly/footer/v1"
+model = "gemini-3.5-flash"
+thinking = "minimal"
+max_input_chars = 10000
+max_retries = 2
+footer_check = true                  # require "Practical Gita" + pillar, exact casing
+normalize_footer = true
+
+[cover]
+model = "gpt-image-2.5-sunburst"
+aspect_ratio = "2:3"
+resolution = "1K"
+quality = "high"
+
+[split]
+prompt = "split/v1"
+model = "gpt-image-2"
+aspect_ratio = "2:3"
+resolution = "1K"
+quality = "medium"
+
+[export]
+format = "webp"
+quality = 90

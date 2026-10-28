@@ -1,0 +1,5 @@
+Title: {{title}}
+
+Author: {{author}}
+
+Genre: {{genre}}

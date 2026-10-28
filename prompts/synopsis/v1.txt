@@ -1,0 +1,7 @@
+Condense the following synopsis for this book, between {{min_chars}} and {{max_chars}} characters (count carefully, spaces included). Open with a hook paragraph, then bold section headings (**Heading**) each followed by one paragraph covering a key idea, and close with a paragraph tying the ideas together. Plain prose, no bullet lists. Output only the synopsis.
+
+Book facts:
+{{facts}}
+
+Synopsis to condense:
+{{source}}

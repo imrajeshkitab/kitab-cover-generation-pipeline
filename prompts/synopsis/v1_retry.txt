@@ -1,0 +1,3 @@
+
+
+Your last attempt was {{last_chars}} characters. Target {{min_chars}}-{{max_chars}}.

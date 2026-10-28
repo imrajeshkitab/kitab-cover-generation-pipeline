@@ -5,6 +5,7 @@
 
 # data and generated output (kept local)
 books/
+journey/
 *.xlsx
 book-sample.txt
 
@@ -12,3 +13,6 @@ book-sample.txt
 .DS_Store
 __pycache__/
 *.pyc
+
+# pipeline outputs (local only)
+outputs/

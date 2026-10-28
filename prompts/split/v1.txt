@@ -1,0 +1,1 @@
+Crop and upscale exclusively the {{cell}} cell of the 2x2 grid. This cell occupies {{span}}. Ignore all other cells completely.

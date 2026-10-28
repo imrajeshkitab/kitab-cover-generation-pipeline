@@ -1,0 +1,9 @@
+Write a "Book facts" block for the book "{{title}}" by {{author}}. Output exactly these four lines separated by blank lines and nothing else:
+
+Title: {{title}}
+
+Author: {{author}}
+
+Genre: <primary genre (sub-genres)>
+
+Target Reader: <one sentence describing who the book is for>

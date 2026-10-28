@@ -1,0 +1,7 @@
+Book title: {{title}}
+
+Pillar: {{pillar}}
+
+Genre: {{genre}}
+
+Target Audience: {{audience}}

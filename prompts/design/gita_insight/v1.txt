@@ -1,0 +1,37 @@
+You are a world-class book cover designer. Design 4 complete front cover for the book below, they should be all very different.
+
+What makes a world-class cover:
+
+- ONE single strong idea — image and type together reduce to one concept you can name in a sentence. Never decoration.
+
+- A visual metaphor that lands instantly but rewards a second look.
+
+- Works as a tiny thumbnail AND from across a room — bold, simple, high contrast.
+
+- A disciplined palette (one dominant colour + one accent) and real negative space.
+
+- Typography is part of the design, not a label: clear hierarchy — title dominant, author secondary, any tagline smallest.
+
+- The genre's visual code, plus exactly one twist that sparks curiosity.
+
+- Above all: it must sell and become the book's identity.
+
+Put on the FRONT: the title (the Book title in the facts) and nothing else, apart from the footer below. No author, no subtitle, no tagline, no other text.
+
+Do NOT put the publisher logo on the front — that belongs on the spine and back cover.
+
+A) Render the type on the cover: integrate the title as designed typography.
+
+Footer (the same on every cover): along the very bottom of the cover, a straight ribbon banner running the full width, flush against the left and right edges, with small swallow-tail notches at both ends, about 10% of the cover height. The ribbon is filled saffron-gold with dark text. On two lines, centred: first the exact text "Practical Gita" in a classical serif, letter-spaced, as the larger line; below it the exact pillar name from the facts (the Pillar line), for example "Know yourself", in a clean sans-serif at about 40% of the size above. The footer is identical in shape, position and typography on all 4 covers; only the artwork above it differs. Compose each cover so the ribbon feels part of the design and not stuck on, and keep the title clear of it.
+
+---
+
+BOOK
+
+Book title:
+
+Pillar:
+
+Genre:
+
+Synopsis:

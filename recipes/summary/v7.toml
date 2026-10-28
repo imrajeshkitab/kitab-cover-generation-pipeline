@@ -1,0 +1,32 @@
+# Summary baseline candidate: cut-paper style (spec look), short title, single covers cropped locally from the grid.
+description = "Book summary cover, cut paper v5 + short title; 2x2 grid cropped locally into 4 covers"
+
+[facts]
+mode = "db"
+block = "facts_block/summary/v3"     # short title (before any colon), author, genre
+
+[synopsis]
+mode = "passthrough"
+
+[prompt]
+design = "design/cutpaper/v5"
+assembly = "assembly/cutpaper/v1"
+model = "gemini-3.5-flash"
+thinking = "minimal"
+max_input_chars = 30000
+max_retries = 2
+footer_check = false
+
+[cover]
+model = "gpt-image-2.5-sunburst"
+aspect_ratio = "2:3"
+resolution = "2K"
+quality = "high"
+
+[split]
+mode = "crop"                        # local crop of the grid, no model call ("model" = ElevenLabs redraw per cell)
+
+[export]
+format = "webp"
+quality = 90
+sizes = [[800, 1200], [400, 600]]    # app list/detail sizes from the spec; native crop is kept too
